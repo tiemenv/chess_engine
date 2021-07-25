@@ -2,6 +2,7 @@ package be.chess.java.pieces;
 
 import be.chess.java.PlayerColor;
 import be.chess.java.board.Board;
+import be.chess.java.board.BoardUtils;
 import be.chess.java.board.Move;
 import be.chess.java.board.Tile;
 
@@ -11,7 +12,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Knight extends Piece{
-    //TODO: calculate moves
     private final static Point[] MOVE_CANDIDATES = {
             new Point(2, 1),
             new Point(2, -1),
@@ -36,7 +36,7 @@ public class Knight extends Piece{
         for(final Point currentCandidate : MOVE_CANDIDATES){
             destinationCoordinate = new Point((int) this.piecePosition.getX() + (int) currentCandidate.getX(), (int) this.piecePosition.getY() + (int) currentCandidate.getY());
 
-            if(true /*valid tile coordinate*/){
+            if(BoardUtils.isValidCoordinate(destinationCoordinate,board)){
                 //possible legal tile, further checking required
                 final Tile destinationTile = board.getTile(destinationCoordinate);
 
