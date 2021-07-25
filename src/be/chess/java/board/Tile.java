@@ -2,12 +2,14 @@ package be.chess.java.board;
 
 import be.chess.java.pieces.Piece;
 
+import java.awt.*;
+
 public class Tile {
-    private final int coordinate;
+    private final Point coordinate;
     private boolean occupied;
     private Piece piece;
 
-    Tile(int coordinate){
+    Tile(Point coordinate){
         this.coordinate = coordinate;
         this.occupied = false;
         this.piece = null;
@@ -29,7 +31,7 @@ public class Tile {
         this.piece = piece;
     }
 
-    public int getCoordinate() {
+    public Point getCoordinate() {
         return coordinate;
     }
 }

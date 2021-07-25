@@ -5,35 +5,60 @@ import be.chess.java.board.Board;
 import be.chess.java.board.Move;
 import be.chess.java.board.Tile;
 
+import java.awt.*;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Knight extends Piece{
-    private final static int[] MOVE_CANDIDATES = {-17,-15,-10,-6,6,10,15,17};
+    //TODO: calculate moves
+    private final static Point[] MOVE_CANDIDATES = {
+            new Point(2, 1),
+            new Point(2, -1),
+            new Point(-2,1),
+            new Point(-2,-1),
+            new Point(1,2),
+            new Point(1, -2),
+            new Point(-1,2),
+            new Point(-1, -2)
+    };
 
-    Knight(final int piecePosition, final PlayerColor pieceColor) {
+    Knight(final Point piecePosition, final PlayerColor pieceColor) {
         super(piecePosition, pieceColor);
     }
 
     @Override
     public Set<Move> calculateLegalMoves(Board board) {
 
-        int destinationCoordinate;
+        Point destinationCoordinate;
         final Set<Move> legalMoves = new HashSet<Move>();
 
-        for(final int currentCandidate : MOVE_CANDIDATES){
-            destinationCoordinate = this.piecePosition + currentCandidate;
+        for(final Point currentCandidate : MOVE_CANDIDATES){
+            destinationCoordinate = new Point((int) this.piecePosition.getX() + (int) currentCandidate.getX(), (int) this.piecePosition.getY() + (int) currentCandidate.getY());
 
             if(true /*valid tile coordinate*/){
+                //possible legal tile, further checking required
                 final Tile destinationTile = board.getTile(destinationCoordinate);
 
                 if(!destinationTile.isOccupied()){
-                    //legal
+                    //legal, since unoccupied
+                    //non-attacking move
                     legalMoves.add(new Move());
+                } else {
+                    //occupied, so get piece and check color
+                    final Piece pieceAtDestination = destinationTile.getPiece();
+                    final PlayerColor pieceColorAtDestination = pieceAtDestination.getPieceColor();
+
+                    if(this.getPieceColor() != pieceColorAtDestination){
+                        //determined this is an enemy piece, so legal move
+                        //attacking move
+                        legalMoves.add(new Move());
+                    }
+                    //else friendly piece, so no legal move
                 }
             }
         }
 
-        return null;
+        return Collections.unmodifiableSet(legalMoves);
     }
 }
