@@ -42,7 +42,7 @@ public class Knight extends Piece{
 
                 if(!destinationTile.isOccupied()){
                     //legal, since unoccupied
-                    //non-attacking move
+                    //TODO: non-attacking move
                     legalMoves.add(new Move());
                 } else {
                     //occupied, so get piece and check color
@@ -51,7 +51,7 @@ public class Knight extends Piece{
 
                     if(this.getPieceColor() != pieceColorAtDestination){
                         //determined this is an enemy piece, so legal move
-                        //attacking move
+                        //TODO: attacking move
                         legalMoves.add(new Move());
                     }
                     //else friendly piece, so no legal move
